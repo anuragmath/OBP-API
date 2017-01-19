@@ -21,6 +21,7 @@ class BranchesTest extends V140ServerSetup with DefaultUsers {
   // Have to repeat the constructor parameters from the trait
   case class BranchImpl(branchId : BranchId,
                         name : String,
+                        ifscCode: String,
                         address : Address,
                         location : Location,
                         meta : Meta,
@@ -77,9 +78,9 @@ class BranchesTest extends V140ServerSetup with DefaultUsers {
     override def hours: String = "M-Th 8:30 - 5:30"
   }
 
-  val fakeBranch1 = BranchImpl(BranchId("branch1"), "Branch 1 Müdürlük", fakeAddress1, fakeLocation, fakeMeta, fakeLobby, fakeDriveUp)
-  val fakeBranch2 = BranchImpl(BranchId("branch2"), "Branch 2 Lala", fakeAddress2, fakeLocation2, fakeMeta, fakeLobby2, fakeDriveUp2)
-  val fakeBranch3 = BranchImpl(BranchId("branch3"), "Branch 3", fakeAddress2, fakeLocation, fakeMetaNoLicense, fakeLobby, fakeDriveUp2) // Should not be returned
+  val fakeBranch1 = BranchImpl(BranchId("branch1"), "Branch 1 Müdürlük", "BR123456",fakeAddress1, fakeLocation, fakeMeta, fakeLobby, fakeDriveUp)
+  val fakeBranch2 = BranchImpl(BranchId("branch2"), "Branch 2 Lala", "BR234567",fakeAddress2, fakeLocation2, fakeMeta, fakeLobby2, fakeDriveUp2)
+  val fakeBranch3 = BranchImpl(BranchId("branch3"), "Branch 3", "BR345678",fakeAddress2, fakeLocation, fakeMetaNoLicense, fakeLobby, fakeDriveUp2) // Should not be returned
 
   // This mock provider is returning same branches for the fake banks
   val mockConnector = new BranchesProvider {

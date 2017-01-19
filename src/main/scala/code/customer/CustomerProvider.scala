@@ -61,6 +61,7 @@ trait Customer {
   def creditLimit: AmountOfMoney
   def kycStatus: Boolean
   def lastOkDate: Date
+  def blockchainData: BlockchainData
 }
 
 trait CustomerFaceImage {
@@ -78,6 +79,11 @@ trait CreditRating {
   def source: String
 }
 
+trait BlockchainData {
+  def walletAddress: String
+}
+
 case class MockCustomerFaceImage(date : Date, url : String) extends CustomerFaceImage
 case class MockCreditRating(rating: String, source: String) extends CreditRating
 case class MockCreditLimit(currency: String, amount: String) extends AmountOfMoney
+case class MockBlockchainData(walletAddress: String) extends BlockchainData

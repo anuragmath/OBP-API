@@ -1,10 +1,17 @@
 package code.kycmedias
 
+import java.io.ByteArrayOutputStream
+import java.net.URL
 import java.util.Date
+import javax.imageio.ImageIO
 
+import code.Blockchain
 import code.util.DefaultStringField
-import net.liftweb.common.{Box,Full}
+import code.vision.TextDetection
+import com.google.api.services.vision.v1.model.EntityAnnotation
+import net.liftweb.common.{Box, Full}
 import net.liftweb.mapper._
+
 
 object MappedKycMediasProvider extends KycMediaProvider {
 
@@ -16,6 +23,17 @@ object MappedKycMediasProvider extends KycMediaProvider {
 
 
   override def addKycMedias(bankId: String, customerId: String, id: String, customerNumber: String, `type`: String, url: String, date: Date, relatesToKycDocumentId: String, relatesToKycCheckId: String): Box[KycMedia] = {
+
+    val img = ImageIO.read(new URL(url))
+    val buf = new ByteArrayOutputStream()
+    ImageIO.write(img, "jpg", buf)
+    buf.flush()
+    val byteImage = buf.toByteArray
+    buf.close()
+
+    val service = new TextDetection(TextDetection.getVisionService)
+    val text = service.detectText(byteImage,2)
+
     val kyc_media = MappedKycMedia.find(By(MappedKycMedia.mId, id)) match {
       case Full(media) => media
         .mId(id)

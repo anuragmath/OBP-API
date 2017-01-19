@@ -53,6 +53,13 @@ class APIUser extends LongKeyedMapper[APIUser] with User with ManyToMany with On
     override def defaultValue = Props.get("hostname","")
   }
 
+  object privateKey_ extends MappedString(this, 100){
+    override def defaultValue = ""
+  }
+
+  object publicKey_ extends MappedString(this, 100){
+    override def defaultValue = ""
+  }
   /**
   * the id of the user at that provider
   */
@@ -75,6 +82,9 @@ class APIUser extends LongKeyedMapper[APIUser] with User with ManyToMany with On
   def name : String = name_.get
   def provider = provider_.get
   def views: List[View] = views_.toList
+
+  def privateKey: String = privateKey_.get
+  def publicKey: String = publicKey_.get
 
 }
 

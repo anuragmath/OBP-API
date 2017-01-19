@@ -155,7 +155,7 @@ trait Bank {
   def swiftBic: String
 
   //it's not entirely clear what this is/represents (BLZ in Germany?)
-  def nationalIdentifier : String
+  def nationalIdentifier: String
 
   def accounts(user : Box[User]) : List[BankAccount] = {
     Views.views.vend.getAllAccountsUserCanSee(this, user)
@@ -296,6 +296,8 @@ trait BankAccount {
         val provider = ""
         val emailAddress = ""
         val name : String = accountHolder
+        val privateKey = ""
+        val publicKey = ""
         def views = Nil
       })
     } else {

@@ -23,7 +23,7 @@ class EntitlementTests extends V200ServerSetup with DefaultUsers {
 
   feature("Assuring that endpoint getEntitlements works as expected - v2.0.0") {
 
-    scenario("We try to get entitlements without login - getEntitlements") {
+    scenario("We try to get entitle-ments without login - getEntitlements") {
       When("We make the request")
       val requestGet = (v2_0Request / "users" / obpuser1.userId / "entitlements").GET
       val responseGet = makeGetRequest(requestGet)
@@ -46,7 +46,7 @@ class EntitlementTests extends V200ServerSetup with DefaultUsers {
       error should contain (s"$CanGetEntitlementsForAnyUserAtAnyBank entitlement required")
     }
 
-    scenario("We try to get entitlements with credentials - getEntitlements") {
+    scenario("We try to get entitlem-------ents with credentials - getEntitlements") {
       When("We add required entitlement")
       Entitlement.entitlement.vend.addEntitlement("", obpuser1.userId, ApiRole.CanGetEntitlementsForAnyUserAtAnyBank.toString)
       And("We make the request")

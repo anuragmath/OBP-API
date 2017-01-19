@@ -30,7 +30,6 @@ class MappedBranch extends Branch with LongKeyedMapper[MappedBranch] with IdPK {
   object mName extends DefaultStringField(this)
 
   object mBranchId extends DefaultStringField(this)
-
   // Exposed inside address. See below
   object mLine1 extends DefaultStringField(this)
   object mLine2 extends DefaultStringField(this)

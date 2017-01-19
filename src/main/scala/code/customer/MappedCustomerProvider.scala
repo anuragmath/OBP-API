@@ -2,9 +2,10 @@ package code.customer
 
 import java.util.Date
 
+import code.Blockchain
 import code.model.{BankId, User}
 import code.model.dataAccess.APIUser
-import code.util.{MappedUUID, DefaultStringField}
+import code.util.{DefaultStringField, MappedUUID}
 import net.liftweb.common.Box
 import net.liftweb.mapper._
 
@@ -87,6 +88,9 @@ object MappedCustomerProvider extends CustomerProvider {
       case _       => MockCreditLimit(currency = "", amount = "")
     }
 
+    val blockchain = new Blockchain()
+    val walletAddress = blockchain.getNewAddress("getnewaddress")
+
     val createdCustomer = MappedCustomer.create
       .mBank(bankId.value)
       .mEmail(email)
@@ -107,6 +111,7 @@ object MappedCustomerProvider extends CustomerProvider {
       .mCreditSource(cr.source)
       .mCreditLimitCurrency(cl.currency)
       .mCreditLimitAmount(cl.amount)
+      .mBlockchainWalletAddress(walletAddress)
       .saveMe()
 
     Some(createdCustomer)
@@ -140,6 +145,7 @@ class MappedCustomer extends Customer with LongKeyedMapper[MappedCustomer] with 
   object mCreditLimitAmount extends MappedString(this, 100)
   object mKycStatus extends MappedBoolean(this)
   object mLastOkDate extends MappedDateTime(this)
+  object mBlockchainWalletAddress extends DefaultStringField(this)
 
   override def customerId: String = mCustomerId.get // id.toString
   override def bank: String = mBank.get
@@ -164,6 +170,10 @@ class MappedCustomer extends Customer with LongKeyedMapper[MappedCustomer] with 
   override def creditLimit: AmountOfMoney = new AmountOfMoney {
     override def currency: String = mCreditLimitCurrency.get
     override def amount: String = mCreditLimitAmount.get
+  }
+
+  override def blockchainData: BlockchainData = new BlockchainData {
+    override def walletAddress: String = mBlockchainWalletAddress.get
   }
   override def kycStatus: Boolean = mKycStatus.get
   override def lastOkDate: Date = mLastOkDate.get

@@ -10,17 +10,17 @@ import code.api.v1_2_1.AmountOfMoneyJSON
 import code.api.v1_3_0.{JSONFactory1_3_0, _}
 import code.api.v1_4_0.JSONFactory1_4_0
 import code.api.v1_4_0.JSONFactory1_4_0._
-import code.api.v2_0_0.{TransactionRequestBodyJSON,_}
+import code.api.v2_0_0.{TransactionRequestBodyJSON, _}
 import code.api.v2_1_0.JSONFactory210._
 import code.atms.Atms
 import code.atms.Atms.AtmId
 import code.bankconnectors.Connector
 import code.branches.Branches
 import code.branches.Branches.BranchId
-import code.customer.{Customer, MockCreditLimit, MockCreditRating, MockCustomerFaceImage}
+import code.customer._
 import code.entitlement.Entitlement
 import code.fx.fx
-import code.metadata.counterparties.{Counterparties}
+import code.metadata.counterparties.Counterparties
 import code.model.dataAccess.OBPUser
 import code.model.{BankId, ViewId, _}
 import code.products.Products.ProductCode
